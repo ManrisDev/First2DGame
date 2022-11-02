@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
     private void Awake()
     {
         if (!player)
-            player = FindObjectOfType<HeroMovement>().transform;
+            player = FindObjectOfType<Hero>().transform;
     }
 
     private void Update()
