@@ -6,28 +6,19 @@ public class Hero : Entity
     [Header("Player Movement Settings")]
     [SerializeField][Range(0, 10f)] private float speed = 3f; //Movement speed
     [SerializeField][Range(0f, 15f)] private float jumpForce = 15f; //Jump power
-
-    private bool isGrounded;
-
-    private new Rigidbody2D rigidbody;
-    private SpriteRenderer sprite;
+    [SerializeField] private new Rigidbody2D rigidbody;
 
     [Header("Player Animation Settings")]
-    private Animator animator;
+    [SerializeField] private Animator animator;
+    [SerializeField] private SpriteRenderer sprite;
+
+    private bool isGrounded;
 
     private States State
     {
         get { return (States)animator.GetInteger("state"); }
         set { animator.SetInteger("state", (int)value); }
     }
-
-    private void Awake()
-    {
-        rigidbody = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        sprite = GetComponent<SpriteRenderer>();
-    }
-
     private void FixedUpdate()
     {
         CheckGround();

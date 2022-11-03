@@ -1485,6 +1485,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  animator: {fileID: 813186342}
+  spriteRender: {fileID: 813186345}
 --- !u!1 &857804952
 GameObject:
   m_ObjectHideFlags: 0
@@ -1582,6 +1584,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   jumpForce: 15
+  rigidbody: {fileID: 857804953}
+  animator: {fileID: 857804958}
+  sprite: {fileID: 857804957}
 --- !u!212 &857804957
 SpriteRenderer:
   m_ObjectHideFlags: 0

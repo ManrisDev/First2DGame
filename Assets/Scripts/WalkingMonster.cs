@@ -1,13 +1,14 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Animator), typeof(SpriteRenderer))]
 public class WalkingMonster : Entity
 {
     [Header("Управление монстром")]
     [SerializeField][Range(0, 10f)] private float speed = 2f;
 
     [Header("Управление анимацией")]
-    private Animator animator;
-    private SpriteRenderer sprite;
+    [SerializeField] private Animator animator;
+    [SerializeField] private SpriteRenderer spriteRender;
 
     private Vector3 direction;
     private bool isMove = true;
@@ -18,14 +19,9 @@ public class WalkingMonster : Entity
         set { animator.SetInteger("state", (int)value); }
     }
 
-    private void Awake()
-    {
-        sprite = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>();
-    }
-
     private void Start()
     {
+        lives = 7;
         direction = -transform.right;
     }
 
@@ -40,6 +36,7 @@ public class WalkingMonster : Entity
         if (collision.gameObject.TryGetComponent(out Hero hero))
         {
             hero.Take_Damage(2);
+            Take_Damage(1);
             isMove = !isMove;
             State = States.idle;
         }
@@ -52,7 +49,7 @@ public class WalkingMonster : Entity
         if (colliders.Length > 0)
         {
             direction *= -1f;
-            sprite.flipX = !sprite.flipX;
+            spriteRender.flipX = !spriteRender.flipX;
         }
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
 
