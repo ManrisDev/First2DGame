@@ -1,10 +1,10 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D), typeof(Animator), typeof(SpriteRenderer))]
 public class Hero : Entity
 {
     [Header("Player Movement Settings")]
     [SerializeField][Range(0, 10f)] private float speed = 3f; //Movement speed
-    [SerializeField] private int lives = 5; //Lives count
     [SerializeField][Range(0f, 15f)] private float jumpForce = 15f; //Jump power
 
     private bool isGrounded;
@@ -14,9 +14,6 @@ public class Hero : Entity
 
     [Header("Player Animation Settings")]
     private Animator animator;
-
-    //Реализация паттерна Singleton
-    public static Hero Instance { get; set; }
 
     private States State
     {
@@ -29,7 +26,6 @@ public class Hero : Entity
         rigidbody = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
-        Instance = this;
     }
 
     private void FixedUpdate()
@@ -41,6 +37,7 @@ public class Hero : Entity
     {
         if (isGrounded) State = States.idle;
 
+        //Попробовать по-другому реализовать
         if (Input.GetButton("Horizontal"))
             Run();
         if (isGrounded && Input.GetButtonDown("Jump"))
@@ -58,6 +55,7 @@ public class Hero : Entity
 
     private void Jump()
     {
+        //Попробовать по-другому реализовать прыжок
         rigidbody.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
     }
 
@@ -67,11 +65,5 @@ public class Hero : Entity
         isGrounded = collider.Length > 1;
 
         if (!isGrounded) State = States.jump;
-    }
-
-    public override void GetDamage()
-    {
-        lives -= 1;
-        Debug.Log(lives);
     }
 }

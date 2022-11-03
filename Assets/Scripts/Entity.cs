@@ -1,8 +1,15 @@
 using UnityEngine;
 
-public class Entity : MonoBehaviour
+public abstract class Entity : MonoBehaviour
 {
-    public virtual void GetDamage() { }
+
+    protected int lives = 5; //Lives count
+
+    public virtual void Take_Damage(int lost_lives)
+    {
+        lives -= lost_lives;
+        Debug.Log(this.gameObject.name + " lives: " + lives);
+    }
 
     public virtual void Die()
     {

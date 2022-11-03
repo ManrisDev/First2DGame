@@ -4,10 +4,10 @@ public class WalkingMonster : Entity
 {
     [Header("Управление монстром")]
     [SerializeField][Range(0, 10f)] private float speed = 2f;
-    private SpriteRenderer sprite;
 
     [Header("Управление анимацией")]
     private Animator animator;
+    private SpriteRenderer sprite;
 
     private Vector3 direction;
     private bool isMove = true;
@@ -37,9 +37,9 @@ public class WalkingMonster : Entity
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject == Hero.Instance.gameObject)
+        if (collision.gameObject.TryGetComponent(out Hero hero))
         {
-            Hero.Instance.GetDamage();
+            hero.Take_Damage(2);
             isMove = !isMove;
             State = States.idle;
         }

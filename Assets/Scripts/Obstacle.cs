@@ -4,9 +4,9 @@ public class Obstacle : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject == Hero.Instance.gameObject)
+        if (collision.gameObject.TryGetComponent(out Hero hero))
         {
-            Hero.Instance.GetDamage();
+            hero.Take_Damage(1);
         }
     }
 }

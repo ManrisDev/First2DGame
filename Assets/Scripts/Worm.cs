@@ -2,15 +2,16 @@ using UnityEngine;
 
 public class Worm : Entity
 {
-    [SerializeField] private int lives = 3;
-
+    private void Start()
+    {
+        lives = 3;
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject == Hero.Instance.gameObject)
+        if (collision.gameObject.TryGetComponent(out Hero hero))
         {
-            Hero.Instance.GetDamage();
-            lives--;
-            Debug.Log("У червяка " + lives + " жизней");
+            hero.Take_Damage(1);
+            Take_Damage(1);
         }
 
         if (lives < 1)
