@@ -41,7 +41,7 @@ public class Hero : Entity
 
         Vector3 direction = transform.right * Input.GetAxis("Horizontal");
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
-        sprite.flipX = direction.x < 0f;
+        sprite.flipX = direction.x > 0f;
     }
 
     private void Jump()
